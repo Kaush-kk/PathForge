@@ -31,10 +31,3 @@ PathForge upgraded from a stateless script to a fully stateful platform utilizin
 * Deeply patched Streamlit's native DOM using raw HTML/CSS injections.
 * Features a decoupled WebGL/Shader 3D Hero background.
 * Implements the "Z-Index Overlay Hack" to float custom UI elements perfectly over the interactive 3D canvas.
-
-## 🛠️ Installation & Setup (Local Deployment)
-
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/Kaush-kk/PathForge.git](https://github.com/Kaush-kk/PathForge.git)
-   cd PathForge
