@@ -33,3 +33,8 @@ PathForge upgraded from a stateless script to a fully stateful platform utilizin
 * Implements the "Z-Index Overlay Hack" to float custom UI elements perfectly over the interactive 3D canvas.
 
 ## 🛠️ Installation & Setup (Local Deployment)
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/kaush-kk/PathForge.git](https://github.com/kaush-kk/PathForge.git)
+   cd PathForge
