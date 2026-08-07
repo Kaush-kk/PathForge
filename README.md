@@ -36,5 +36,5 @@ PathForge upgraded from a stateless script to a fully stateful platform utilizin
 
 1. **Clone the repository:**
    ```bash
-   git clone [https://github.com/kaush-kk/PathForge.git](https://github.com/kaush-kk/PathForge.git)
+   git clone [https://github.com/Kaush-kk/PathForge.git](https://github.com/Kaush-kk/PathForge.git)
    cd PathForge
