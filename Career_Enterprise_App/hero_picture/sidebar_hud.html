@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>PathForge - Sidebar HUD</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&amp;family=Hanken+Grotesk:wght@400;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline-variant": "#4d4354",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-low": "#1b1b20",
+                        "on-surface": "#e4e1e9",
+                        "background": "#131318",
+                        "secondary": "#5de6ff",
+                        "on-tertiary-fixed-variant": "#604100",
+                        "on-secondary-fixed-variant": "#004e5a",
+                        "on-tertiary-fixed": "#281900",
+                        "on-surface-variant": "#cfc2d6",
+                        "secondary-fixed-dim": "#2fd9f4",
+                        "tertiary-container": "#bd871a",
+                        "on-secondary-fixed": "#001f25",
+                        "terminal-green": "#00B67A",
+                        "on-tertiary": "#432c00",
+                        "neon-purple-glow": "#C084FC",
+                        "error-container": "#93000a",
+                        "on-secondary-container": "#00515d",
+                        "on-error": "#690005",
+                        "surface-dim": "#131318",
+                        "obsidian-base": "rgba(10, 10, 15, 0.6)",
+                        "tertiary-fixed": "#ffdead",
+                        "on-primary-fixed": "#2c0051",
+                        "surface-container": "#1f1f25",
+                        "primary": "#ddb7ff",
+                        "surface-bright": "#39383e",
+                        "on-primary": "#490080",
+                        "ice-blue": "#BDE4F5",
+                        "on-secondary": "#00363e",
+                        "on-background": "#e4e1e9",
+                        "secondary-container": "#00cbe6",
+                        "secondary-fixed": "#a2eeff",
+                        "surface-container-high": "#2a292f",
+                        "outline": "#988d9f",
+                        "inverse-primary": "#842bd2",
+                        "cyber-cyan": "#22D3EE",
+                        "surface-container-highest": "#35343a",
+                        "primary-fixed": "#f0dbff",
+                        "surface-container-lowest": "#0e0e13",
+                        "primary-container": "#b76dff",
+                        "surface-variant": "#35343a",
+                        "tertiary": "#fabc4e",
+                        "surface-tint": "#ddb7ff",
+                        "glass-border": "rgba(255, 255, 255, 0.12)",
+                        "on-tertiary-container": "#3a2600",
+                        "inverse-surface": "#e4e1e9",
+                        "on-primary-container": "#400071",
+                        "tertiary-fixed-dim": "#fabc4e",
+                        "inverse-on-surface": "#303036",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "error": "#ffb4ab",
+                        "surface": "#131318"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "unit": "4px",
+                        "sidebar-width": "360px",
+                        "panel-padding": "24px"
+                    },
+                    "fontFamily": {
+                        "terminal-sm": ["JetBrains Mono"],
+                        "body-md": ["Hanken Grotesk"],
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "terminal-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    },
+                    animation: {
+                        'pulse-border': 'pulse-border 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'glow-pulse': 'glow-pulse 3s infinite alternate',
+                    },
+                    keyframes: {
+                        'pulse-border': {
+                            '0%, 100%': { borderColor: 'rgba(192, 132, 252, 0.2)', boxShadow: '0 0 0 0 rgba(192, 132, 252, 0)' },
+                            '50%': { borderColor: 'rgba(192, 132, 252, 0.8)', boxShadow: '0 0 10px 0 rgba(192, 132, 252, 0.4)' },
+                        },
+                        'glow-pulse': {
+                            '0%': { boxShadow: '0 0 20px rgba(249, 115, 22, 0.4)' },
+                            '100%': { boxShadow: '0 0 40px rgba(249, 115, 22, 0.8)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0e0e13;
+        }
+
+        .glass-panel {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .y-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .y-lift:hover {
+            transform: translateY(-2px);
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(192, 132, 252, 0.5);
+        }
+    </style>
+    <script crossorigin="anonymous" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body class="min-h-screen flex items-center justify-center p-8 relative overflow-hidden bg-[#0e0e13]">
+    <!-- Sidebar HUD Component -->
+    <aside
+        class="relative z-10 w-sidebar-width h-[850px] glass-panel rounded-xl flex flex-col overflow-hidden shadow-[0_0_50px_rgba(0,0,0,0.8)] border border-glass-border bg-[#09090e]/30">
+        <!-- Background Image & Shader Contained in Sidebar -->
+        <img alt="Background" class="absolute inset-0 w-full h-full object-cover z-0 opacity-80"
+            src="https://lh3.googleusercontent.com/aida/AP1WRLvv68jDQ0MXqXwwWf4Wbsc35N-KYcmu3L6s69GuSTBhvUgU35VcCX-4dB5hazbRZ2LnPU6eY5FY0wcnpUN_XvISlcQZm0-M8v0D5YDws5qHDa3gAGuZ0COiyM5MEORFJOC_ngImx6LRhv1XSHQjC9kfUTBDsHQiJqLv3EmImQeMpqwMrAq3M3CvVPkh7KHL_gDQZTlKy8BqjhcIiItWaJH8DIwBQ70Y_hoZi6G3aMA97EtHIRJByn8y1Us" />
+        <div class="absolute inset-0 z-0 pointer-events-none" id="shader-container" style="mix-blend-mode: screen;">
+        </div>
+        <!-- Foreground Content Container -->
+        <div class="relative z-10 w-full h-full flex flex-col">
+            <!-- Top HUD Header -->
+            <div class="px-panel-padding pt-panel-padding pb-4 flex items-start justify-between bg-black/40">
+                <div class="flex items-start gap-4">
+                    <span class="material-symbols-outlined text-[32px] text-on-surface-variant transform -rotate-45"
+                        style="font-variation-settings: 'FILL' 1;">build</span>
+                    <div>
+                        <h1 class="font-headline-md text-headline-md text-tertiary">My Forge</h1>
+                        <p class="font-label-caps text-[10px] text-on-surface-variant mt-1 tracking-[0.2em] uppercase">
+                            PLAYER HUD · CAREER</p>
+                        <p class="font-label-caps text-[10px] text-on-surface-variant tracking-[0.2em] uppercase">
+                            INTELLIGENCE</p>
+                    </div>
+                </div>
+                <button
+                    class="w-8 h-8 flex items-center justify-center rounded-lg border border-glass-border bg-white/5 text-on-surface-variant hover:bg-white/10 hover:text-white transition-colors y-lift">
+                    <span class="material-symbols-outlined text-[16px]">keyboard_double_arrow_left</span>
+                </button>
+            </div>
+            <!-- Section Title & Memory Dropdown -->
+            <div class="px-panel-padding pb-6 bg-black/40">
+                <h2
+                    class="font-label-caps text-[11px] text-on-surface-variant mb-3 tracking-widest border-b border-glass-border/50 pb-2">
+                    YOUR FORGE MEMORY</h2>
+                <button
+                    class="w-full flex items-center justify-between bg-black/60 border border-primary/30 rounded-lg px-4 py-3 y-lift hover:border-cyber-cyan hover:shadow-[0_0_15px_rgba(34,211,238,0.4)] transition-all duration-300 group">
+                    <span
+                        class="font-body-md text-[15px] text-on-surface group-hover:text-cyber-cyan transition-colors">Parametric
+                        Fabricator (Saved)</span>
+                    <span
+                        class="material-symbols-outlined text-on-surface-variant group-hover:text-cyber-cyan transition-colors">expand_more</span>
+                </button>
+            </div>
+            <!-- Action Core -->
+            <div class="px-panel-padding pb-6 border-b border-glass-border/30 relative bg-black/40">
+                <button
+                    class="w-full relative overflow-hidden rounded-xl y-lift active:scale-95 transition-all duration-300 group hover:shadow-[0_0_30px_rgba(249,115,22,0.6)]">
+                    <div class="absolute inset-0 bg-gradient-to-r from-orange-500 via-orange-400 to-red-500 z-0"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-0"></div>
+                    <div class="relative z-20 flex items-center justify-center gap-2 py-4 px-4">
+                        <span class="material-symbols-outlined text-yellow-300 font-variation-settings: 'FILL' 1;"
+                            style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="font-headline-md text-[16px] text-black tracking-tight">Save to My Forge</span>
+                    </div>
+                    <div
+                        class="absolute inset-0 opacity-0 group-hover:opacity-20 bg-white transition-opacity z-10 pointer-events-none">
+                    </div>
+                </button>
+                <!-- Subtle background glow behind button -->
+                <div
+                    class="absolute inset-0 bg-orange-500/20 blur-2xl z-[-1] pointer-events-none rounded-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[80%] h-12">
+                </div>
+            </div>
+            <!-- Tab Menu -->
+            <nav aria-label="Sidebar Navigation" class="flex px-4 pt-4 border-b border-glass-border/30 bg-black/50">
+                <!-- Details -->
+                <button
+                    class="flex-1 py-3 text-[14px] font-body-md text-on-surface-variant hover:text-on-surface transition-colors">
+                    Details
+                </button>
+                <!-- Exams -->
+                <button
+                    class="flex-1 py-3 text-[14px] font-body-md text-on-surface-variant hover:text-on-surface transition-colors">
+                    Exams
+                </button>
+                <!-- Courses -->
+                <button
+                    class="flex-1 py-3 text-[14px] font-body-md text-on-surface-variant hover:text-on-surface transition-colors">
+                    Courses
+                </button>
+                <!-- My Notes (Active) -->
+                <button class="flex-1 py-3 text-[14px] font-body-md text-primary transition-all relative group y-lift">
+                    My Notes
+                    <!-- Active Underline -->
+                    <div
+                        class="absolute bottom-0 left-0 w-full h-[2px] bg-primary shadow-[0_0_10px_rgba(192,132,252,1)]">
+                    </div>
+                </button>
+            </nav>
+            <!-- Content Area -->
+            <div class="flex-1 flex flex-col p-panel-padding bg-black/50 overflow-hidden relative">
+                <div class="flex items-center gap-2 mb-2 relative z-10">
+                    <span class="material-symbols-outlined text-[14px] text-primary/70">save</span>
+                    <span class="font-label-caps text-[10px] text-on-surface-variant tracking-widest uppercase">PERSONAL
+                        NOTES</span>
+                </div>
+                <textarea
+                    class="flex-1 w-full bg-[#0a0a0f]/80 border border-glass-border rounded-lg resize-none font-body-md text-[15px] text-on-surface placeholder:text-on-surface-variant/50 focus:outline-none focus:ring-1 focus:ring-neon-purple-glow focus:border-neon-purple-glow focus:shadow-[0_0_15px_rgba(168,85,247,0.4)] custom-scrollbar relative z-10 p-4 transition-all duration-300"
+                    placeholder="Jot down your thoughts, goals, exam dates, or personal reflections about this career path..."
+                    spellcheck="false"></textarea>
+                <!-- Save Notes Button -->
+                <div class="mt-4 flex justify-center relative z-10">
+                    <button
+                        class="w-full py-3 bg-white/5 border border-glass-border/50 rounded-lg y-lift hover:border-primary/50 hover:bg-white/10 transition-all flex items-center justify-center gap-2 group">
+                        <span
+                            class="material-symbols-outlined text-[18px] text-primary group-hover:text-primary-fixed transition-colors">save</span>
+                        <span
+                            class="font-body-md text-[14px] text-on-surface-variant group-hover:text-on-surface transition-colors">Save
+                            Notes</span>
+                    </button>
+                </div>
+            </div>
+            <!-- Subtle Bottom Luminous Edge -->
+            <div
+                class="h-1 w-full bg-gradient-to-r from-transparent via-primary/30 to-transparent absolute bottom-0 z-20 shadow-[0_0_15px_rgba(192,132,252,0.5)]">
+            </div>
+        </div>
+    </aside>
+    <script>
+        // Initialize WebGL Shader Overlay for Sidebar Dimensions
+        const container = document.getElementById('shader-container');
+        const sidebarWidth = 360;
+        const sidebarHeight = 850;
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: false });
+
+        renderer.setSize(sidebarWidth, sidebarHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        const vertexShader = `
+            varying vec2 v_texCoord;
+            void main() {
+                v_texCoord = uv;
+                gl_Position = vec4(position, 1.0);
+            }
+        `;
+
+        const fragmentShader = `
+            <webgl-shader src="{{DATA:ANIMATION:30}}" class=""></webgl-shader>
+        `;
+
+        const uniforms = {
+            u_time: { value: 0.0 },
+            u_resolution: { value: new THREE.Vector2(sidebarWidth, sidebarHeight) },
+            u_mouse: { value: new THREE.Vector2(sidebarWidth / 2, sidebarHeight / 2) }
+        };
+
+        const material = new THREE.ShaderMaterial({
+            vertexShader: vertexShader,
+            fragmentShader: fragmentShader,
+            uniforms: uniforms,
+            transparent: true,
+            blending: THREE.AdditiveBlending
+        });
+
+        const geometry = new THREE.PlaneGeometry(2, 2);
+        const mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+
+        // Handle Mouse Move over Sidebar
+        container.parentElement.addEventListener('mousemove', (e) => {
+            const rect = container.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            uniforms.u_mouse.value.set(x, sidebarHeight - y);
+        });
+
+        // Animation Loop
+        let time = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+            time += 0.01;
+            uniforms.u_time.value = time;
+            renderer.render(scene, camera);
+        }
+        animate();
+    </script>
+</body>
+
+</html>
